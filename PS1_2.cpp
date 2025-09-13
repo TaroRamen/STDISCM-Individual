@@ -163,7 +163,7 @@ int main(){
         cout << n << " is a prime number." << endl;
     } else {
         cout << n << " is not a prime number." << endl;
-        if(divisible > 1){
+        if(divisible >= 1){
             if(n % (6*divisible+1) == 0){
                 cout << n << " is divisible by " << 6*divisible+1 << endl;
             } else if(n % (6*divisible-1) == 0){
