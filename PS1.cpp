@@ -76,7 +76,7 @@ int main(){
     }
 
     cout << "Variation ";
-    while (!(cin >> variation) || variation <= 1 || variation > 4) {
+    while (!(cin >> variation) || variation < 1 || variation > 4) {
         cout << "Invalid input. Please enter a positive integer between 1 to 4: ";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');

@@ -139,14 +139,7 @@ int main(){
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
-
-    cout << "Variation ";
-    while (!(cin >> variation) || variation <= 1 || variation > 4) {
-        cout << "Invalid input. Please enter a positive integer between 1 to 4: ";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    }
-
+    
     auto now_s = chrono::system_clock::now();
     time_t now_c_s = chrono::system_clock::to_time_t(now_s);
     tm local_tm_s{};
