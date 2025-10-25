@@ -6,12 +6,12 @@
 #include <ctime>
 #include <iostream>
 #include <sstream>
-#include <limits>
+#include <fstream>
 #include <thread>
 #include <windows.h>
 #include <mutex>
 #include <vector>
-#include <fstream>
+#include <unordered_map>
 using namespace std;
 
 int finished_threads = 0;
@@ -156,32 +156,81 @@ void check_all(uint64_t n, int thread_num) {
 
 }
 
+unordered_map<string, string> read_config(const string& filename) {
+    unordered_map<string, string> config;
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cerr << "Error: Could not open " << filename << endl;
+        exit(1);
+    }
+
+    string line;
+    while (getline(file, line)) {
+        if (line.empty() || line[0] == '#')
+            continue;
+
+        size_t eq_pos = line.find('=');
+        if (eq_pos != string::npos) {
+            string key = line.substr(0, eq_pos);
+            string value = line.substr(eq_pos + 1);
+
+            auto trim = [](string& s) {
+                size_t start = s.find_first_not_of(" \t\r\n");
+                size_t end = s.find_last_not_of(" \t\r\n");
+                if (start == string::npos) { s.clear(); return; }
+                s = s.substr(start, end - start + 1);
+            };
+
+            trim(key);
+            trim(value);
+            config[key] = value;
+        }
+    }
+    return config;
+}
+
+bool is_valid_uint(const string& s) {
+    if (s.empty()) return false;
+    for (char c : s) {
+        if (!isdigit(c)) return false;
+    }
+    return true;
+}
+
 int main(){
     uint64_t n;
     int thread_num;
     int variation;
 
-    string input;
-    cout << "Enter a number: ";
-    while (true) {
-        getline(cin, input);
-        stringstream ss(input);
+    auto config = read_config("config.txt");
 
-        if (ss >> n && n > 1 && ss.eof()) {
-            break;
+    // Validate num_threads
+    if (config.find("num_threads") != config.end() && is_valid_uint(config["num_threads"])) {
+        thread_num = stoi(config["num_threads"]);
+        if (thread_num <= 0) {
+            cerr << "Error: num_threads must be greater than 0." << endl;
+            return 1;
         }
-        cout << "Invalid input. Please enter a positive integer greater than 1: ";
+    } else {
+        cerr << "Error: Invalid or missing 'num_threads' in config file!" << endl;
+        return 1;
     }
 
-    cout << "Enter number of threads: ";
-    while (true) {
-        getline(cin, input);
-        stringstream ss(input);
-
-        if (ss >> thread_num && thread_num > 0 && ss.eof()) {
-            break;
+    // Validate max_num
+    if (config.find("max_num") != config.end() && is_valid_uint(config["max_num"])) {
+        try {
+            n = stoull(config["max_num"]);
+            if (n <= 1) {
+                cerr << "Error: max_num must be greater than 1." << endl;
+                return 1;
+            }
+        } catch (const exception& e) {
+            cerr << "Error: Invalid number format for max_num." << endl;
+            return 1;
         }
-        cout << "Invalid input. Please enter a positive integer: ";
+    } else {
+        cerr << "Error: Invalid or missing 'max_num' in config file!" << endl;
+        return 1;
     }
     
     auto now_s = chrono::system_clock::now();

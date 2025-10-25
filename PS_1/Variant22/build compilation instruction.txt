@@ -1,0 +1,7 @@
+Step 1: Edit the config.txt by Opening it and Changing the values
+Step 2: Click the Address Bar (Located on top of the File Explorer)
+Step 3: Clear the Address Bar
+Step 4: Type cmd and press Enter
+Step 5: Copy paste this into the terminal "c++ PS1_Variant22.cpp -o PS1_Variant22.exe" then press enter
+Step 6: Copy paste this into the terminal "./PS1_Variant22.exe" then press enter
+Step 7: Run the program

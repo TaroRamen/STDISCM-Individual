@@ -1,0 +1,7 @@
+# Config file
+
+# Number of threads
+num_threads = 4
+
+# Maximum number to search for all prime numbers
+max_num = 256
