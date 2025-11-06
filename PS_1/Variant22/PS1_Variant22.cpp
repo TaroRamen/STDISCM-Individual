@@ -245,12 +245,12 @@ int main(){
     tm local_tm_e{};
     localtime_s(&local_tm_e, &now_c_e);
 
-    cout << put_time(&local_tm_s, "[%H:%M:%S] ") << "Start time" << endl;
-    cout << put_time(&local_tm_e, "[%H:%M:%S] ") << "End time" << endl;
-
     for(const string& output_line : output_list_with_timestamps) {
         cout << output_line << endl;
     }
+
+    cout << put_time(&local_tm_s, "[%H:%M:%S] ") << "Start time" << endl;
+    cout << put_time(&local_tm_e, "[%H:%M:%S] ") << "End time" << endl;
 
     ofstream outfile("prime_22.txt"); // Ignore, sumakit ulo ko mag double check sa console so Im outputting the primes to a file
     if (!outfile) {

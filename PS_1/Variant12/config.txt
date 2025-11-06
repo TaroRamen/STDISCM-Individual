@@ -4,4 +4,4 @@
 num_threads = 4
 
 # Maximum number to search for all prime numbers
-max_num = 256
+max_num = 65536

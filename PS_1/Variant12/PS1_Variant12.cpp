@@ -192,10 +192,10 @@ int main(){
     tm local_tm_e{};
     localtime_s(&local_tm_e, &now_c_e);
 
-    cout << put_time(&local_tm_s, "[%H:%M:%S] ") << "Start time" << endl;
-    cout << put_time(&local_tm_e, "[%H:%M:%S] ") << "End time" << endl;
-
     for(const string& output_line : output_list_with_timestamps) {
         cout << output_line;
     }
+
+    cout << put_time(&local_tm_s, "[%H:%M:%S] ") << "Start time" << endl;
+    cout << put_time(&local_tm_e, "[%H:%M:%S] ") << "End time" << endl;
 }
