@@ -54,6 +54,7 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "chrono": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "iomanip": "cpp"
     }
 }

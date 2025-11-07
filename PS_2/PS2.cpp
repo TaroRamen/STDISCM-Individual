@@ -1,13 +1,17 @@
+
 #include <cstdint>
 #include <cmath>
 #include <chrono>
 #include <iomanip>
 #include <ctime>
 #include <iostream>
+#include <sstream>
+#include <fstream>
 #include <thread>
 #include <windows.h>
 #include <mutex>
 #include <vector>
+#include <unordered_map>
 using namespace std;
 #define LINE "------------------------------------------------------------------------------------------------------------------"
 
@@ -178,15 +182,167 @@ void match_thread(){
     
 }
 
-int main(){
-    int initial_tanks = 7;
-    int initial_healers = 7;
-    int initial_dps = 21;
-    dungeon_count = 3;
+unordered_map<string, string> read_config(const string& filename) {
+    unordered_map<string, string> config;
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cerr << "Error: Could not open " << filename << endl;
+        exit(1);
+    }
 
-    count = vector<int>(3, 0);
+    string line;
+    while (getline(file, line)) {
+        if (line.empty() || line[0] == '#')
+            continue;
+
+        size_t eq_pos = line.find('=');
+        if (eq_pos != string::npos) {
+            string key = line.substr(0, eq_pos);
+            string value = line.substr(eq_pos + 1);
+
+            auto trim = [](string& s) {
+                size_t start = s.find_first_not_of(" \t\r\n");
+                size_t end = s.find_last_not_of(" \t\r\n");
+                if (start == string::npos) { s.clear(); return; }
+                s = s.substr(start, end - start + 1);
+            };
+
+            trim(key);
+            trim(value);
+            config[key] = value;
+        }
+    }
+    return config;
+}
+
+bool is_valid_uint(const string& s) {
+    if (s.empty()) return false;
+    for (char c : s) {
+        if (!isdigit(c)) return false;
+    }
+    return true;
+}
+
+int main(){
+    int instance_count;
+    int tank_count;
+    int healer_count;
+    int dps_count;
+    int min_instance_time;
+    int max_instance_time;
+
+    auto config = read_config("config.txt");
+
+    // Validate n
+    if (config.find("n") != config.end() && is_valid_uint(config["n"])) {
+        try {
+            instance_count = stoull(config["n"]);
+            if (instance_count <= 1) {
+                cerr << "Error: n must be greater than 1." << endl;
+                return 1;
+            }
+        } catch (const exception& e) {
+            cerr << "Error: Invalid number format for n." << endl;
+            return 1;
+        }
+    } else {
+        cerr << "Error: Invalid or missing 'n' in config file!" << endl;
+        return 1;
+    }
+
+    // Validate t
+    if (config.find("t") != config.end() && is_valid_uint(config["t"])) {
+        try {
+            tank_count = stoull(config["t"]);
+            if (tank_count <= 1) {
+                cerr << "Error: t must be greater than 1." << endl;
+                return 1;
+            }
+        } catch (const exception& e) {
+            cerr << "Error: Invalid number format for t." << endl;
+            return 1;
+        }
+    } else {
+        cerr << "Error: Invalid or missing 't' in config file!" << endl;
+        return 1;
+    }
+
+    // Validate h
+    if (config.find("h") != config.end() && is_valid_uint(config["h"])) {
+        try {
+            healer_count = stoull(config["h"]);
+            if (healer_count < 0) { // Shouldn’t happen, but for completeness
+                cerr << "Error: h cannot be negative." << endl;
+                return 1;
+            }
+        } catch (const exception& e) {
+            cerr << "Error: Invalid number format for h." << endl;
+            return 1;
+        }
+    } else {
+        cerr << "Error: Invalid or missing 'h' in config file!" << endl;
+        return 1;
+    }
+
+    // Validate d
+    if (config.find("d") != config.end() && is_valid_uint(config["d"])) {
+        try {
+            dps_count = stoull(config["d"]);
+            if (dps_count < 0) {
+                cerr << "Error: d cannot be negative." << endl;
+                return 1;
+            }
+        } catch (const exception& e) {
+            cerr << "Error: Invalid number format for d." << endl;
+            return 1;
+        }
+    } else {
+        cerr << "Error: Invalid or missing 'd' in config file!" << endl;
+        return 1;
+    }
+
+    // Validate t1
+    if (config.find("t1") != config.end() && is_valid_uint(config["t1"])) {
+        try {
+            min_instance_time = stoull(config["t1"]);
+            if (min_instance_time == 0) {
+                cerr << "Error: t1 must be greater than 0." << endl;
+                return 1;
+            }
+        } catch (const exception& e) {
+            cerr << "Error: Invalid number format for t1." << endl;
+            return 1;
+        }
+    } else {
+        cerr << "Error: Invalid or missing 't1' in config file!" << endl;
+        return 1;
+    }
+
+    // Validate t2
+    if (config.find("t2") != config.end() && is_valid_uint(config["t2"])) {
+        try {
+            max_instance_time = stoull(config["t2"]);
+            if (max_instance_time < min_instance_time) {
+                cerr << "Error: t2 must be greater than or equal to t1." << endl;
+                return 1;
+            }
+        } catch (const exception& e) {
+            cerr << "Error: Invalid number format for t2." << endl;
+            return 1;
+        }
+    } else {
+        cerr << "Error: Invalid or missing 't2' in config file!" << endl;
+        return 1;
+    }
+    
     for(int i = 0; i < dungeon_count; i++){
         dungeon_free_list.push_back(i);
         dungeon_party_list.push_back("EMPTY");
     }
+
+    thread start = thread(match_thread);
+    thread print = thread(print_thread);
+    start.join();
+    is_done = true;
+    print.join();
 }
