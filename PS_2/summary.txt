@@ -1,0 +1,70 @@
+SUMMARY (per instance):
+Instance 0 - served parties: 7 | total time served: 19s
+Instance 1 - served parties: 6 | total time served: 25s
+Instance 2 - served parties: 6 | total time served: 22s
+Instance 3 - served parties: 6 | total time served: 22s
+Instance 4 - served parties: 6 | total time served: 20s
+Instance 5 - served parties: 6 | total time served: 22s
+Instance 6 - served parties: 6 | total time served: 25s
+Instance 7 - served parties: 6 | total time served: 23s
+Instance 8 - served parties: 7 | total time served: 23s
+Instance 9 - served parties: 8 | total time served: 18s
+Instance 10 - served parties: 6 | total time served: 20s
+Instance 11 - served parties: 6 | total time served: 22s
+Instance 12 - served parties: 7 | total time served: 20s
+Instance 13 - served parties: 6 | total time served: 22s
+Instance 14 - served parties: 6 | total time served: 20s
+Instance 15 - served parties: 7 | total time served: 21s
+Instance 16 - served parties: 7 | total time served: 18s
+Instance 17 - served parties: 6 | total time served: 23s
+Instance 18 - served parties: 7 | total time served: 22s
+Instance 19 - served parties: 6 | total time served: 20s
+Instance 20 - served parties: 7 | total time served: 22s
+Instance 21 - served parties: 6 | total time served: 18s
+Instance 22 - served parties: 6 | total time served: 22s
+Instance 23 - served parties: 7 | total time served: 20s
+Instance 24 - served parties: 7 | total time served: 21s
+Instance 25 - served parties: 6 | total time served: 19s
+Instance 26 - served parties: 7 | total time served: 24s
+Instance 27 - served parties: 6 | total time served: 22s
+Instance 28 - served parties: 7 | total time served: 21s
+Instance 29 - served parties: 6 | total time served: 23s
+Instance 30 - served parties: 6 | total time served: 20s
+Instance 31 - served parties: 6 | total time served: 20s
+Instance 32 - served parties: 6 | total time served: 24s
+Instance 33 - served parties: 7 | total time served: 20s
+Instance 34 - served parties: 6 | total time served: 22s
+Instance 35 - served parties: 6 | total time served: 21s
+Instance 36 - served parties: 6 | total time served: 19s
+Instance 37 - served parties: 6 | total time served: 21s
+Instance 38 - served parties: 6 | total time served: 19s
+Instance 39 - served parties: 6 | total time served: 20s
+Instance 40 - served parties: 5 | total time served: 20s
+Instance 41 - served parties: 7 | total time served: 20s
+Instance 42 - served parties: 6 | total time served: 20s
+Instance 43 - served parties: 7 | total time served: 18s
+Instance 44 - served parties: 6 | total time served: 22s
+Instance 45 - served parties: 7 | total time served: 17s
+Instance 46 - served parties: 6 | total time served: 20s
+Instance 47 - served parties: 6 | total time served: 22s
+Instance 48 - served parties: 7 | total time served: 19s
+Instance 49 - served parties: 6 | total time served: 20s
+Instance 50 - served parties: 8 | total time served: 18s
+Instance 51 - served parties: 7 | total time served: 19s
+Instance 52 - served parties: 6 | total time served: 24s
+Instance 53 - served parties: 7 | total time served: 18s
+Instance 54 - served parties: 6 | total time served: 20s
+Instance 55 - served parties: 7 | total time served: 19s
+Instance 56 - served parties: 6 | total time served: 22s
+Instance 57 - served parties: 6 | total time served: 18s
+Instance 58 - served parties: 7 | total time served: 22s
+Instance 59 - served parties: 7 | total time served: 18s
+Instance 60 - served parties: 6 | total time served: 22s
+Instance 61 - served parties: 6 | total time served: 21s
+Instance 62 - served parties: 6 | total time served: 22s
+Instance 63 - served parties: 7 | total time served: 21s
+
+Total parties served: 409 | total time served across all instances: 1327s
+
+Remaining Players in Queues:
+Tanks: 36 | Healers: 0 | DPS: 273
